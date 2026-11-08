@@ -8,10 +8,26 @@ import { authClient } from "@/lib/auth-client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { PasswordInput } from "@/components/shared/authentication/password-input"
+import { cn } from "@/lib/utils"
 
 type FieldName = "name" | "email" | "password" | "confirmPassword"
 type Errors = Partial<Record<FieldName, string>>
+type Role = "seeker" | "recruiter"
+
+const ROLES: { value: Role; label: string; description: string }[] = [
+  {
+    value: "seeker",
+    label: "I'm looking for a job",
+    description: "Browse jobs and apply as a candidate.",
+  },
+  {
+    value: "recruiter",
+    label: "I'm hiring",
+    description: "Post jobs and manage candidates.",
+  },
+]
 
 export function SignUpForm() {
   const router = useRouter()
@@ -24,6 +40,7 @@ export function SignUpForm() {
   const [errors, setErrors] = React.useState<Errors>({})
   const [authError, setAuthError] = React.useState<string | null>(null)
   const [pending, setPending] = React.useState(false)
+  const [role, setRole] = React.useState<Role>("seeker")
 
   const setField = (field: FieldName) => (value: string) => {
     setValues((prev) => ({ ...prev, [field]: value }))
@@ -59,6 +76,7 @@ export function SignUpForm() {
       name: values.name.trim(),
       email: values.email.trim(),
       password: values.password,
+      role, // why type error here?
     })
 
     if (signUpError) {
@@ -76,7 +94,7 @@ export function SignUpForm() {
       // Account created, but sign-in failed — continue on the sign-in page.
       router.push("/sign-in")
     } else {
-      router.push("/dashboard")
+      router.push("/")
     }
     router.refresh()
     setPending(false)
@@ -178,6 +196,37 @@ export function SignUpForm() {
           {authError}
         </p>
       )}
+
+      <div className="flex flex-col gap-1.5">
+        <Label id="sign-up-role-label" className="text-sm">
+          I want to join HireLoop as
+        </Label>
+        <RadioGroup
+          value={role}
+          onValueChange={(value) => setRole(value as Role)}
+          aria-labelledby="sign-up-role-label"
+          className="grid grid-cols-1 gap-2 sm:grid-cols-2"
+        >
+          {ROLES.map((option) => (
+            <label
+              key={option.value}
+              className={cn(
+                "flex cursor-pointer items-start gap-3 rounded-xl border border-input p-3 transition-colors",
+                "hover:bg-muted/50",
+                "has-data-checked:border-primary has-data-checked:bg-primary/5"
+              )}
+            >
+              <RadioGroupItem value={option.value} className="mt-0.5" />
+              <span className="flex flex-col gap-0.5">
+                <span className="text-sm font-medium">{option.label}</span>
+                <span className="text-xs text-muted-foreground">
+                  {option.description}
+                </span>
+              </span>
+            </label>
+          ))}
+        </RadioGroup>
+      </div>
 
       <Button
         type="submit"
