@@ -19,7 +19,7 @@ export function AuthActions({ className }: { className?: string }) {
         Sign In
       </Link>
       <Link
-        href="/get-started"
+        href="/sign-up"
         className={cn(
           buttonVariants({
             size: "lg",

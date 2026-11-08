@@ -116,7 +116,7 @@ export function MobileMenu({ pathname }: { pathname: string }) {
             Sign In
           </Link>
           <Link
-            href="/get-started"
+            href="/sign-up"
             onClick={close}
             className={cn(
               buttonVariants({
