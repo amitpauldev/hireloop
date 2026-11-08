@@ -10,12 +10,12 @@ export default function AuthLayout({
     <div className="relative flex min-h-svh flex-col bg-background text-foreground">
       {/* Decorative token-based glow */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-primary/10 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-80 bg-linear-to-b from-primary/10 to-transparent" />
         <div className="absolute top-24 left-1/2 size-160 -translate-x-1/2 rounded-full bg-primary/8 blur-3xl" />
       </div>
 
       {/* Top-left: back to home */}
-      <div className="absolute top-4 left-4 z-10">
+      <div className="absolute top-4 left-4 z-50">
         <BackToHome className="rounded-xl px-3 py-2" />
       </div>
 

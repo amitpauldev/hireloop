@@ -76,7 +76,7 @@ export function SignUpForm() {
       name: values.name.trim(),
       email: values.email.trim(),
       password: values.password,
-      role, // why type error here?
+      role,
     })
 
     if (signUpError) {

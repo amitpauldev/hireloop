@@ -28,7 +28,7 @@ export function PasswordInput({
         aria-label={visible ? "Hide password" : "Show password"}
         aria-pressed={visible}
         onClick={() => setVisible((prev) => !prev)}
-        className="absolute inset-y-0 right-2 my-auto h-6 w-6 text-muted-foreground hover:text-foreground"
+        className="absolute inset-y-0 right-2 my-auto h-6 w-6 cursor-pointer text-muted-foreground hover:text-foreground"
       >
         {visible ? <EyeOff /> : <Eye />}
       </Button>

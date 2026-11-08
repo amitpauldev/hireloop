@@ -42,7 +42,7 @@ export function SocialAuthButtons() {
             size="lg"
             disabled={pending !== null}
             onClick={() => signInWithSocial(id)}
-            className="h-10 justify-center rounded-xl px-3 text-sm hover:bg-accent"
+            className="h-10 cursor-pointer justify-center rounded-xl px-3 text-sm hover:bg-accent"
           >
             {pending === id ? (
               <Loader2 className="size-4 animate-spin" />
