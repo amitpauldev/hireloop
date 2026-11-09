@@ -22,9 +22,12 @@ type SessionUser = NonNullable<
 export function UserMenu({
   user,
   className,
+  compact = false,
 }: {
   user: SessionUser
   className?: string
+  /** Avatar-only trigger (no name) — used on mobile screens */
+  compact?: boolean
 }) {
   const router = useRouter()
   const { resolvedTheme, setTheme } = useTheme()
@@ -48,18 +51,21 @@ export function UserMenu({
             aria-label="Open user menu"
             className={cn(
               "flex cursor-pointer items-center gap-2 rounded-xl p-1.5 pr-3 text-[15px] font-semibold text-foreground transition-colors outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring data-popup-open:bg-accent",
+              compact && "rounded-2xl p-1.5",
               className
             )}
           >
-            <Avatar size="default">
+            <Avatar size="default" className={"border-2 border-primary"}>
               {user.image ? (
                 <AvatarImage src={user.image} alt={user.name ?? "User"} />
               ) : null}
               <AvatarFallback>{initial}</AvatarFallback>
             </Avatar>
-            <span className="max-w-32 truncate">
-              {user.name ?? "My Account"}
-            </span>
+            {!compact && (
+              <span className="max-w-32 truncate">
+                {user.name ?? "My Account"}
+              </span>
+            )}
           </button>
         }
       />

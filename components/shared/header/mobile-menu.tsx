@@ -46,7 +46,7 @@ export function MobileMenu({ pathname }: { pathname: string }) {
         aria-expanded={open}
         aria-controls="mobile-nav-drawer"
         onClick={() => setOpen((prev) => !prev)}
-        className="size-11! rounded-2xl border border-border bg-card/90 text-foreground/80 shadow-lg shadow-background/50 backdrop-blur-md hover:bg-secondary hover:text-foreground lg:hidden"
+        className="size-11! rounded-2xl border border-border bg-card/90 text-foreground/80 shadow-lg shadow-background/50 backdrop-blur-md hover:bg-secondary hover:text-foreground md:hidden"
       >
         {open ? <X className="size-5" /> : <Menu className="size-5" />}
       </Button>
@@ -61,15 +61,15 @@ export function MobileMenu({ pathname }: { pathname: string }) {
         )}
       />
 
-      {/* Sidebar drawer — 40% of the viewport width */}
+      {/* Sidebar drawer — 40% of the viewport width, opens from the left */}
       <aside
         id="mobile-nav-drawer"
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex w-2/5 min-w-64 flex-col overflow-y-auto border-l border-border bg-card p-5 shadow-2xl shadow-background/60 transition-transform duration-300 ease-out",
-          open ? "translate-x-0" : "pointer-events-none translate-x-full"
+          "fixed inset-y-0 left-0 z-50 flex w-2/5 min-w-64 flex-col overflow-y-auto border-r border-border bg-card p-5 shadow-2xl shadow-background/60 transition-transform duration-300 ease-out",
+          open ? "translate-x-0" : "pointer-events-none -translate-x-full"
         )}
       >
         <div className="flex items-center justify-between">
@@ -105,7 +105,7 @@ export function MobileMenu({ pathname }: { pathname: string }) {
 
         <div className="mt-6 border-t border-border pt-6">
           {session ? (
-            <div className="flex items-center gap-3">
+            <div className="hidden items-center gap-3 md:flex">
               <Avatar className="border border-border bg-card shadow-lg shadow-background/50">
                 {session.user.image ? (
                   <AvatarImage
