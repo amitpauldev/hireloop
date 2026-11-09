@@ -3,7 +3,7 @@ import { cn } from "cn"
 
 export const navLinks = [
   { label: "Browse Jobs", href: "/jobs" },
-  { label: "Company", href: "/company" },
+  { label: "Company", href: "/companies" },
   { label: "Pricing", href: "/pricing" },
 ] as const
 

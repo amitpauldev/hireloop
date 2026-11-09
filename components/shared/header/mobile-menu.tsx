@@ -4,12 +4,15 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { navLinks } from "./nav-links"
 import { Logo } from "./logo"
+import { authClient } from "@/lib/auth-client"
 import { cn } from "cn"
 
 export function MobileMenu({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false)
+  const { data: session } = authClient.useSession()
 
   // Close on Escape
   useEffect(() => {
@@ -100,34 +103,62 @@ export function MobileMenu({ pathname }: { pathname: string }) {
           ))}
         </nav>
 
-        <div className="mt-6 flex flex-col gap-3 border-t border-border pt-6">
-          <Link
-            href="/sign-in"
-            onClick={close}
-            className={cn(
-              buttonVariants({
-                variant: "outline",
-                size: "lg",
-                className:
-                  "w-full justify-center rounded-xl text-[15px] font-semibold text-primary hover:bg-accent hover:text-primary",
-              })
-            )}
-          >
-            Sign In
-          </Link>
-          <Link
-            href="/sign-up"
-            onClick={close}
-            className={cn(
-              buttonVariants({
-                size: "lg",
-                className:
-                  "h-11 w-full justify-center rounded-xl bg-primary text-base font-semibold text-primary-foreground shadow-[0_0_24px_-4px] shadow-primary/50 hover:bg-primary/90",
-              })
-            )}
-          >
-            Get Started
-          </Link>
+        <div className="mt-6 border-t border-border pt-6">
+          {session ? (
+            <div className="flex items-center gap-3">
+              <Avatar className="border border-border bg-card shadow-lg shadow-background/50">
+                {session.user.image ? (
+                  <AvatarImage
+                    src={session.user.image}
+                    alt={session.user.name ?? "User"}
+                  />
+                ) : null}
+                <AvatarFallback>
+                  {session.user.name?.charAt(0).toUpperCase() ?? "U"}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex min-w-0 flex-col">
+                <span className="truncate text-[15px] font-semibold text-foreground">
+                  {session.user.name ?? "My Account"}
+                </span>
+                {session.user.email ? (
+                  <span className="truncate text-xs text-muted-foreground">
+                    {session.user.email}
+                  </span>
+                ) : null}
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/sign-in"
+                onClick={close}
+                className={cn(
+                  buttonVariants({
+                    variant: "outline",
+                    size: "lg",
+                    className:
+                      "w-full justify-center rounded-xl text-[15px] font-semibold text-primary hover:bg-accent hover:text-primary",
+                  })
+                )}
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/sign-up"
+                onClick={close}
+                className={cn(
+                  buttonVariants({
+                    size: "lg",
+                    className:
+                      "h-11 w-full justify-center rounded-xl bg-primary text-base font-semibold text-primary-foreground shadow-[0_0_24px_-4px] shadow-primary/50 hover:bg-primary/90",
+                  })
+                )}
+              >
+                Get Started
+              </Link>
+            </div>
+          )}
         </div>
       </aside>
     </>
