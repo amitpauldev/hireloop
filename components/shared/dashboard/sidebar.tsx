@@ -59,12 +59,12 @@ const NAV_ITEMS: Record<DashboardRole, NavItem[]> = {
     { title: "Dashboard", url: "/dashboard/recruiter", icon: LayoutDashboard },
     {
       title: "Add Job",
-      url: "/dashboard/recruiter/jobs/add-job",
+      url: "/dashboard/recruiter/manage-jobs/add-job",
       icon: PlusCircleIcon,
     },
     {
       title: "Manage Jobs",
-      url: "/dashboard/recruiter/jobs",
+      url: "/dashboard/recruiter/manage-jobs",
       icon: BriefcaseBusiness,
     },
     {
@@ -154,8 +154,7 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu className="gap-1">
               {items.map((item) => {
-                const isActive =
-                  pathname === item.url || pathname.startsWith(`${item.url}/`)
+                const isActive = pathname === item.url
 
                 return (
                   <SidebarMenuItem key={item.title}>
