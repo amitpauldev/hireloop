@@ -38,7 +38,6 @@ export function UserMenu({
     setTheme(resolvedTheme === "dark" ? "light" : "dark")
 
   const [signOutOpen, setSignOutOpen] = useState(false)
-
   return (
     <>
       <DropdownMenu>
@@ -104,7 +103,7 @@ export function UserMenu({
           </DropdownMenuItem>
 
           <DropdownMenuItem
-            render={<Link href="/dashboard" />}
+            render={<Link href={`/dashboard/${user.role}`} />}
             className="rounded-lg px-2 py-2"
           >
             <LayoutDashboard />
