@@ -13,6 +13,8 @@ export async function createJob(payload: JobPayload): Promise<CreateJobResult> {
   try {
     const cookieHeader = (await cookies()).toString()
 
+    console.log("cookie", cookieHeader)
+
     const res = await fetch(`${process.env.SERVER_URL}/jobs`, {
       method: "POST",
       headers: {
